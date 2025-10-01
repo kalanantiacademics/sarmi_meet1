@@ -27,14 +27,16 @@
         .bg-pattern {
             position: relative;
             background: linear-gradient(135deg, #eef7ff 0%, #ffffff 100%);
+            isolation: isolate;
         }
         .bg-pattern::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-image: "/motif.png";
+            background-image: url('aset/motif.png');
             opacity: 0.1;
             pointer-events: none;
+            z-index: -1;
         }
 
         /* Starburst SVG for background elements */
@@ -153,6 +155,26 @@
             transform: scale(1.2);
         }
 
+        /* Simple Animation for Cards */
+        @keyframes card-fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide.active .animate-card {
+            animation: card-fade-in-up 0.7s ease-out forwards;
+            opacity: 0; /* Start as invisible */
+        }
+        .slide.active .animate-card-delay-1 { animation-delay: 0.15s; }
+        .slide.active .animate-card-delay-2 { animation-delay: 0.3s; }
+        .slide.active .animate-card-delay-3 { animation-delay: 0.45s; }
+
     </style>
 </head>
 <body>
@@ -166,6 +188,11 @@
     </svg>
 
     <div id="presentation-container" class="relative w-full">
+        <header class="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-30">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Ruang_Guru_logo.svg/1200px-Ruang_Guru_logo.svg.png" alt="Ruangguru Logo" class="h-10">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Lambang_Kabupaten_Sarmi.png" alt="Sarmi Logo" class="h-12">
+        </header>
+
         <div id="presentation-wrapper">
             <!-- BAGIAN 1: PEMBUKAAN & KONEKSI (10 Menit) -->
 
@@ -174,7 +201,7 @@
                  <svg class="starburst" style="top: 15%; left: 10%; width:80px; height:80px; color: white; transform: rotate(20deg); opacity: 0.7;"><use xlink:href="#starburst-svg"></use></svg>
                  <svg class="starburst" style="bottom: 20%; right: 15%; transform: rotate(-15deg); color: white;"><use xlink:href="#starburst-svg"></use></svg>
                 <div class="w-full max-w-4xl text-center z-10">
-                    <div class="p-10 bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-white">
+                    <div class="p-10 bg-white rounded-2xl shadow-2xl border-2 border-gray-100 animate-card">
                         <h1 class="text-6xl lg:text-7xl font-black text-[var(--brand-dark)] tracking-tighter leading-tight">Mengajar di Era Digital</h1>
                         <p class="text-3xl lg:text-4xl font-bold text-[var(--brand-blue)] mt-3">Dari AI di Genggaman hingga Pola Pikir Masa Depan</p>
                         <div class="h-2 w-28 bg-[var(--brand-blue)] my-8 rounded-full mx-auto"></div>
@@ -187,15 +214,15 @@
             <div id="slide-1" class="slide bg-pattern">
                 <h2 class="text-4xl font-black text-gray-800 mb-8 text-center">Di akhir sesi 90 menit ini, Bapak/Ibu akan bisa:</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
-                    <div class="bg-white p-6 rounded-2xl text-center border-2 border-gray-100 shadow-xl transform hover:scale-105 transition-transform duration-300">
+                    <div class="bg-white p-6 rounded-2xl text-center border-2 border-gray-200 shadow-xl transform hover:scale-105 transition-transform duration-300 animate-card animate-card-delay-1">
                         <p class="text-7xl">📱</p>
                         <p class="text-xl font-semibold mt-4 text-gray-800">Mengidentifikasi 'keajaiban' AI yang ternyata sudah kita gunakan setiap hari.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl text-center border-2 border-gray-100 shadow-xl transform hover:scale-105 transition-transform duration-300">
+                    <div class="bg-white p-6 rounded-2xl text-center border-2 border-gray-200 shadow-xl transform hover:scale-105 transition-transform duration-300 animate-card animate-card-delay-2">
                         <p class="text-7xl">🤖</p>
                         <p class="text-xl font-semibold mt-4 text-gray-800">Membedakan cara kerja program AI (yang 'belajar') dan program biasa (yang 'disuruh').</p>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl text-center border-2 border-gray-100 shadow-xl transform hover:scale-105 transition-transform duration-300">
+                    <div class="bg-white p-6 rounded-2xl text-center border-2 border-gray-200 shadow-xl transform hover:scale-105 transition-transform duration-300 animate-card animate-card-delay-3">
                         <p class="text-7xl">🧩</p>
                         <p class="text-xl font-semibold mt-4 text-gray-800">Menerapkan 4 langkah Berpikir Komputasional untuk memecahkan masalah kompleks.</p>
                     </div>
@@ -207,16 +234,16 @@
                 <h2 class="text-4xl font-black text-white mb-2">Pemanasan: Seberapa Akrab Kita dengan AI?</h2>
                 <p class="text-2xl font-bold text-white/80 mb-8">Dalam 24 jam terakhir, aplikasi mana yang Anda gunakan?</p>
                 <div class="flex flex-wrap justify-center gap-8">
-                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:-rotate-6 transition-transform duration-300">
+                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:-rotate-6 transition-transform duration-300 animate-card animate-card-delay-1">
                         <img src="https://cdn-icons-png.freepik.com/512/5323/5323926.png" alt="Google Maps Icon" class="h-20 w-20">
                     </div>
-                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:rotate-6 transition-transform duration-300">
+                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:rotate-6 transition-transform duration-300 animate-card animate-card-delay-2">
                         <img src="https://cdn3.iconfinder.com/data/icons/social-network-30/512/social-06-512.png" alt="YouTube Icon" class="h-20 w-20">
                     </div>
-                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:-rotate-6 transition-transform duration-300">
+                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:-rotate-6 transition-transform duration-300 animate-card animate-card-delay-3">
                         <img src="https://cdn-icons-png.flaticon.com/512/8826/8826609.png" alt="Shopee Icon" class="h-20 w-20">
                     </div>
-                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:rotate-6 transition-transform duration-300">
+                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:rotate-6 transition-transform duration-300 animate-card animate-card-delay-3">
                         <img src="https://png.pngtree.com/png-vector/20240719/ourmid/pngtree-cartoon-picture-of-an-icon-and-a-chat-screen-on-a-vector-png-image_7228088.png" alt="Keyboard/Chat Icon" class="h-20 w-20 object-contain">
                     </div>
                 </div>
@@ -230,8 +257,8 @@
                     <h2 class="text-5xl font-black text-gray-800">Cek Ombak Dulu: Pre-Test Awal</h2>
                     <p class="text-xl text-gray-600 mt-2">Tidak ada nilai benar atau salah, ini hanya untuk pemetaan.</p>
                 </div>
-                <div class="flex items-center gap-12 bg-white p-10 rounded-3xl shadow-2xl border-2 border-white">
-                    <img src="https://drive.google.com/uc?export=view&id=1iedXnDTQPHUGfw-QEEhMuhA5wlgjNv_d" alt="QR Code" class="rounded-2xl shadow-lg w-64 hidden md:block">
+                <div class="flex items-center gap-12 bg-white p-10 rounded-3xl shadow-2xl border-2 border-gray-200 animate-card">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=http://bit.ly/pretest_sarmi" alt="QR Code Pre-test" class="rounded-2xl shadow-lg w-64 hidden md:block">
                     <div class="text-center">
                         <p class="text-2xl font-bold text-gray-700">Waktu Pengerjaan</p>
                         <p id="timer-display" class="text-8xl font-black text-[var(--brand-blue)] my-2">10:00</p>
@@ -248,14 +275,14 @@
             <div id="slide-4" class="slide bg-pattern text-center">
                 <h2 class="text-6xl font-black text-[var(--brand-blue)] mb-8">Kok Bisa, ya?</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100 flex flex-col items-center">
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-200 flex flex-col items-center animate-card animate-card-delay-1">
                         <div class="flex-grow flex justify-center items-center mb-4">
                             <img src="https://cdn-icons-png.freepik.com/512/5323/5323926.png" alt="Google Maps Icon" class="h-20">
                         </div>
                         <h3 class="text-xl font-bold mb-2 text-gray-900">Google Maps</h3>
                         <p class="text-gray-700">Bagaimana bisa tahu jalanan di depan macet?</p>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100 flex flex-col items-center">
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-200 flex flex-col items-center animate-card animate-card-delay-2">
                         <div class="flex-grow flex justify-center items-center gap-4 mb-4">
                             <img src="https://cdn3.iconfinder.com/data/icons/social-network-30/512/social-06-512.png" alt="YouTube Icon" class="h-20">
                             <img src="https://cdn-icons-png.flaticon.com/512/8826/8826609.png" alt="Shopee Icon" class="h-20">
@@ -263,7 +290,7 @@
                         <h3 class="text-xl font-bold mb-2 text-gray-900">YouTube / Shopee</h3>
                         <p class="text-gray-700">Kenapa rekomendasinya sering pas dengan selera kita?</p>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100 flex flex-col items-center">
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-200 flex flex-col items-center animate-card animate-card-delay-3">
                         <div class="flex-grow flex justify-center items-center mb-4">
                             <img src="https://png.pngtree.com/png-vector/20240719/ourmid/pngtree-cartoon-picture-of-an-icon-and-a-chat-screen-on-a-vector-png-image_7228088.png" alt="Keyboard Icon" class="h-20 object-contain">
                         </div>
@@ -279,15 +306,15 @@
                  <svg class="starburst" style="bottom: 15%; left: 15%; width:50px; height:50px; color: var(--brand-lime); opacity: 0.6;"><use xlink:href="#starburst-svg"></use></svg>
                 <h2 class="text-4xl font-black text-white mb-8 z-10">Inilah Kunci Jawabannya: DATA, POLA, & PREDIKSI</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl z-10">
-                    <div class="bg-white/20 p-8 rounded-2xl text-center text-white backdrop-blur-md border border-white/30">
+                    <div class="bg-white/20 p-8 rounded-2xl text-center text-white backdrop-blur-sm border border-white/30 animate-card animate-card-delay-1">
                         <h3 class="text-4xl font-black text-[var(--brand-lime)]">📊 DATA</h3>
                         <p class="mt-4 text-lg">AI Belajar dari DATA (Jutaan data kecepatan HP di jalan).</p>
                     </div>
-                    <div class="bg-white/20 p-8 rounded-2xl text-center text-white backdrop-blur-md border border-white/30">
+                    <div class="bg-white/20 p-8 rounded-2xl text-center text-white backdrop-blur-sm border border-white/30 animate-card animate-card-delay-2">
                         <h3 class="text-4xl font-black text-[var(--brand-lime)]">🔍 POLA</h3>
                         <p class="mt-4 text-lg">AI Menemukan POLA (Jika banyak HP melambat, POLA-nya macet).</p>
                     </div>
-                    <div class="bg-white/20 p-8 rounded-2xl text-center text-white backdrop-blur-md border border-white/30">
+                    <div class="bg-white/20 p-8 rounded-2xl text-center text-white backdrop-blur-sm border border-white/30 animate-card animate-card-delay-3">
                         <h3 class="text-4xl font-black text-[var(--brand-lime)]">🔮 PREDIKSI</h3>
                         <p class="mt-4 text-lg">AI Membuat PREDIKSI (PREDIKSI rute tercepat untuk Anda).</p>
                     </div>
@@ -298,13 +325,13 @@
             <div id="slide-6" class="slide bg-pattern">
                 <h2 class="text-4xl font-black text-gray-800 mb-8">Analogi Sederhana</h2>
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-5xl">
-                    <div class="bg-white p-8 rounded-2xl text-center border-2 border-gray-100 shadow-xl">
+                    <div class="bg-white p-8 rounded-2xl text-center border-2 border-gray-200 shadow-xl animate-card animate-card-delay-1">
                         <h3 class="text-3xl font-bold text-gray-800 mb-4">Kalkulator (Non-AI)</h3>
                         <p class="text-7xl mb-4">🔢</p>
                         <p class="text-xl font-semibold text-[var(--brand-blue)]">"Hanya Mengikuti Perintah"</p>
                         <p class="text-lg mt-2 text-gray-600">2+2 akan selalu menghasilkan 4. Tidak pernah berubah.</p>
                     </div>
-                    <div class="bg-[var(--brand-lime)] p-8 rounded-2xl text-center border-4 border-gray-800 shadow-2xl">
+                    <div class="bg-[var(--brand-lime)] p-8 rounded-2xl text-center border-4 border-gray-800 shadow-2xl animate-card animate-card-delay-2">
                         <h3 class="text-3xl font-bold mb-4 text-gray-900">Google Translate (AI)</h3>
                         <p class="text-7xl mb-4">🌐</p>
                         <p class="text-xl font-semibold text-gray-800">"Terus Belajar & Beradaptasi"</p>
@@ -317,7 +344,7 @@
             <div id="slide-7" class="slide text-center bg-pattern">
                  <svg class="starburst" style="top: 15%; left: 10%; color: var(--brand-lime);"><use xlink:href="#starburst-svg"></use></svg>
                  <svg class="starburst" style="bottom: 20%; right: 15%; transform: rotate(15deg); width: 60px; height: 60px; color: var(--brand-blue);"><use xlink:href="#starburst-svg"></use></svg>
-                <div class="bg-white p-12 rounded-3xl shadow-2xl border-2 border-white max-w-4xl z-10">
+                <div class="bg-white p-12 rounded-3xl shadow-2xl border-2 border-gray-200 max-w-4xl z-10 animate-card">
                     <p class="text-xl text-gray-600 mb-4">Untuk membangun teknologi cerdas seperti AI, para ahli tidak langsung coding.</p>
                     <p class="text-xl text-gray-600 mb-8">Mereka memulainya dengan sebuah kerangka berpikir sistematis untuk memecahkan masalah.</p>
                     <h1 class="text-5xl font-black text-white bg-[var(--brand-blue)] py-4 px-8 rounded-2xl shadow-2xl inline-block transform -rotate-2">BERPIKIR KOMPUTASIONAL</h1>
@@ -327,7 +354,7 @@
 
             <!-- Slide 9: Studi Kasus -->
             <div id="slide-8" class="slide bg-pattern">
-                <div class="bg-white p-12 rounded-3xl shadow-2xl border-2 border-white max-w-4xl text-center">
+                <div class="bg-white p-12 rounded-3xl shadow-2xl border-2 border-gray-200 max-w-4xl text-center animate-card">
                     <h2 class="text-4xl font-black text-gray-800">Studi Kasus Kita:</h2>
                     <p class="text-4xl font-bold text-white bg-[var(--brand-blue)] mt-4 p-4 rounded-xl inline-block">"Menyukseskan Class Meeting Akhir Semester"</p>
                     <p class="text-xl mt-6 text-gray-600">Mari kita bedah masalah besar dan kompleks ini menggunakan 4 pilar Berpikir Komputasional.</p>
@@ -336,7 +363,7 @@
 
             <!-- Slide 10: Pilar #1: DEKOMPOSISI -->
             <div id="slide-9" class="slide bg-pattern text-center">
-                <div class="w-full max-w-4xl">
+                <div class="w-full max-w-4xl animate-card">
                     <h2 class="text-5xl font-black text-gray-800 mb-2">Pilar #1: DEKOMPOSISI</h2>
                     <p class="text-2xl text-gray-600 mb-8">Seni memecah masalah 'gajah' menjadi potongan-potongan 'ayam' yang lebih mudah dikelola.</p>
                     <div class="bg-white border-4 border-[var(--brand-lime)] text-gray-800 p-8 rounded-2xl w-full shadow-2xl">
@@ -348,7 +375,7 @@
 
             <!-- Slide 11: Pilar #2: PENGENALAN POLA -->
             <div id="slide-10" class="slide bg-pattern text-center">
-                 <div class="w-full max-w-4xl">
+                 <div class="w-full max-w-4xl animate-card">
                     <h2 class="text-5xl font-black text-gray-800 mb-2">Pilar #2: PENGENALAN POLA</h2>
                     <p class="text-2xl text-gray-600 mb-8">Mencari kesamaan di antara potongan-potongan masalah agar bisa bekerja lebih efisien.</p>
                     <div class="bg-white border-4 border-[var(--brand-blue)] text-gray-800 p-8 rounded-2xl w-full shadow-2xl">
@@ -360,7 +387,7 @@
 
             <!-- Slide 12: Pilar #3: ABSTRAKSI -->
             <div id="slide-11" class="slide bg-pattern text-center">
-                <div class="w-full max-w-4xl">
+                <div class="w-full max-w-4xl animate-card">
                     <h2 class="text-5xl font-black text-gray-800 mb-2">Pilar #3: ABSTRAKSI</h2>
                     <p class="text-2xl text-gray-600 mb-8">Fokus pada informasi yang PENTING saja, abaikan detail yang tidak relevan untuk sementara.</p>
                      <div class="bg-white border-4 border-[var(--brand-lime)] text-gray-800 p-8 rounded-2xl w-full shadow-2xl">
@@ -372,7 +399,7 @@
             
             <!-- Slide 13: Pilar #4: ALGORITMA -->
             <div id="slide-12" class="slide bg-pattern text-center">
-                <div class="w-full max-w-4xl">
+                <div class="w-full max-w-4xl animate-card">
                     <h2 class="text-5xl font-black text-gray-800 mb-2">Pilar #4: ALGORITMA</h2>
                     <p class="text-2xl text-gray-600 mb-8">Membuat urutan langkah-demi-langkah yang jelas dan tidak ambigu untuk menyelesaikan satu tugas.</p>
                      <div class="bg-white border-4 border-[var(--brand-blue)] text-gray-800 p-8 rounded-2xl w-full shadow-2xl">
@@ -405,7 +432,7 @@
             <!-- Slide 14: Rangkuman Visual -->
             <div id="slide-13" class="slide" style="background-color: var(--brand-dark);">
                 <div class="text-center w-full max-w-4xl">
-                    <h2 class="text-4xl font-black text-white mb-8">Rangkuman Visual: Kerangka Berpikir Digital</h2>
+                    <h2 class="text-4xl font-black text-white mb-8 animate-card">Rangkuman Visual: Kerangka Berpikir Digital</h2>
                      <div class="text-center bg-gray-700 p-8 rounded-2xl border-2 border-gray-600">
                         <h3 class="text-3xl font-bold text-[var(--brand-lime)]">Pemecahan Masalah di Era Digital</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6 text-white">
@@ -429,8 +456,8 @@
             <div id="slide-14" class="slide bg-pattern">
                 <div class="text-center w-full max-w-3xl">
                     <h2 class="text-5xl font-black text-gray-800 mb-2">"Tiket Keluar": Refleksi Cepat</h2>
-                    <p class="text-xl mb-8 text-gray-600">Sebelum kita selesai, mohon tuliskan di kertas/form:</p>
-                    <div class="text-left bg-white p-8 rounded-2xl border-2 border-gray-100 space-y-6 shadow-xl text-lg">
+                    <p class="text-xl mb-8 text-gray-600">Sebelum kita selesai, mohon tuliskan di kolom chat:</p>
+                    <div class="text-left bg-white p-8 rounded-2xl border-2 border-gray-200 space-y-6 shadow-xl text-lg animate-card">
                         <p>1. Satu hal <strong>paling menarik</strong> yang saya pelajari hari ini adalah...</p>
                         <p>2. Satu <strong>pertanyaan</strong> yang masih saya miliki adalah...</p>
                         <p>3. Saya ingin mencoba menerapkan <strong>[pilih: Dekomposisi / Pola / Abstraksi / Algoritma]</strong> untuk memecahkan masalah...</p>
@@ -443,7 +470,7 @@
                 <div class="text-center w-full max-w-3xl">
                     <h2 class="text-5xl font-black text-gray-800 mb-2">Mohon Isi Form Feedback</h2>
                     <p class="text-xl mb-8 text-gray-600">Masukan Anda sangat berharga untuk perbaikan kami ke depannya.</p>
-                    <div class="bg-white p-8 rounded-2xl shadow-xl border-2 border-gray-100 flex flex-col md:flex-row items-center gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-2 border-gray-200 flex flex-col md:flex-row items-center gap-8 animate-card">
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=http://bit.ly/sarmi_feedback" alt="QR Code Feedback" class="w-48 h-48 rounded-lg">
                         <div class="text-left">
                             <p class="text-lg text-gray-700">Pindai QR code di samping atau kunjungi tautan di bawah ini untuk mengisi form feedback.</p>
