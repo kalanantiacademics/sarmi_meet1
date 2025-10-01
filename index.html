@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pertemuan Minggu 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles inspired by the design */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Lighter background */
+            overflow: hidden; /* Hide scrollbars */
+        }
+
+        /* Using a bright lime and a deep blue from the reference image */
+        :root {
+            --brand-lime: #D4FF44;
+            --brand-blue: #302DE4;
+            --brand-dark: #1F1F1F;
+        }
+        
+        /* Background pattern styling */
+        .bg-pattern {
+            position: relative;
+            background: linear-gradient(135deg, #eef7ff 0%, #ffffff 100%);
+        }
+        .bg-pattern::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://drive.google.com/uc?export=view&id=1UetevKpamI2KrqZbQKYkaLVOCS9oWbyb');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        /* Starburst SVG for background elements */
+        .starburst {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            color: var(--brand-blue);
+            z-index: 0;
+            opacity: 0.8;
+        }
+
+        /* Full-screen presentation container */
+        #presentation-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Styles for each slide */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out, visibility 0.6s;
+            transform: scale(0.95);
+            background-color: white;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            z-index: 10;
+        }
+
+        /* Animation for slides moving out to the left */
+        .slide.exit-left {
+            transform: translateX(-100%) scale(0.95);
+            opacity: 0;
+        }
+        
+        /* Animation for slides moving out to the right */
+        .slide.exit-right {
+            transform: translateX(100%) scale(0.95);
+            opacity: 0;
+        }
+        
+        /* Animation for slides entering from the right */
+        .slide.enter-right {
+             transform: translateX(100%) scale(0.95);
+        }
+        
+        /* Animation for slides entering from the left */
+        .slide.enter-left {
+            transform: translateX(-100%) scale(0.95);
+        }
+
+        /* Navigation buttons styling */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-arrow:hover {
+            background-color: var(--brand-blue);
+            transform: translateY(-50%) scale(1.1);
+        }
+        #prev-slide { left: 20px; }
+        #next-slide { right: 20px; }
+
+        /* Slide indicator dots styling */
+        #slide-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            gap: 12px;
+            background-color: rgba(0,0,0,0.2);
+            padding: 8px 16px;
+            border-radius: 99px;
+        }
+        .indicator-dot {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .indicator-dot.active {
+            background-color: var(--brand-lime);
+            transform: scale(1.2);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Starburst SVG Definition -->
+    <svg width="0" height="0" class="absolute">
+      <defs>
+        <symbol id="starburst-svg" viewBox="0 0 100 100">
+          <path d="M50 0 L55.9 34.5 L85.35 14.65 L65.5 44.1 L100 50 L65.5 55.9 L85.35 85.35 L55.9 65.5 L50 100 L44.1 65.5 L14.65 85.35 L34.5 55.9 L0 50 L34.5 44.1 L14.65 14.65 L44.1 34.5 Z" fill="currentColor"/>
+        </symbol>
+      </defs>
+    </svg>
+
+    <div id="presentation-container" class="relative w-full">
+        <div id="presentation-wrapper">
+            <!-- BAGIAN 1: PEMBUKAAN & KONEKSI (10 Menit) -->
+
+            <!-- Slide 1: Judul Utama (REVISED) -->
+            <div id="slide-0" class="slide active items-center justify-center" style="background-color: var(--brand-lime);">
+                 <svg class="starburst" style="top: 15%; left: 10%; width:80px; height:80px; color: white; transform: rotate(20deg); opacity: 0.7;"><use xlink:href="#starburst-svg"></use></svg>
+                 <svg class="starburst" style="bottom: 20%; right: 15%; transform: rotate(-15deg); color: white;"><use xlink:href="#starburst-svg"></use></svg>
+                <div class="w-full max-w-4xl text-center z-10">
+                    <div class="p-10 bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-white">
+                        <h1 class="text-6xl lg:text-7xl font-black text-[var(--brand-dark)] tracking-tighter leading-tight">Mengajar di Era Digital</h1>
+                        <p class="text-3xl lg:text-4xl font-bold text-[var(--brand-blue)] mt-3">Dari AI di Genggaman hingga Pola Pikir Masa Depan</p>
+                        <div class="h-2 w-28 bg-[var(--brand-blue)] my-8 rounded-full mx-auto"></div>
+                        <h2 class="text-xl font-semibold text-gray-700">Pelatihan Pemanfaatan AI dan Teknologi Digital untuk Guru | Pertemuan 1</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Tujuan Kita Hari Ini -->
+            <div id="slide-1" class="slide bg-pattern">
+                <h2 class="text-4xl font-black text-gray-800 mb-8 text-center">Di akhir sesi 90 menit ini, Bapak/Ibu akan bisa:</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+                    <div class="bg-white p-6 rounded-2xl text-center border-2 border-gray-100 shadow-xl transform hover:scale-105 transition-transform duration-300">
+                        <p class="text-7xl">📱</p>
+                        <p class="text-xl font-semibold mt-4 text-gray-800">Mengidentifikasi 'keajaiban' AI yang ternyata sudah kita gunakan setiap hari.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl text-center border-2 border-gray-100 shadow-xl transform hover:scale-105 transition-transform duration-300">
+                        <p class="text-7xl">🤖</p>
+                        <p class="text-xl font-semibold mt-4 text-gray-800">Membedakan cara kerja program AI (yang 'belajar') dan program biasa (yang 'disuruh').</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl text-center border-2 border-gray-100 shadow-xl transform hover:scale-105 transition-transform duration-300">
+                        <p class="text-7xl">🧩</p>
+                        <p class="text-xl font-semibold mt-4 text-gray-800">Menerapkan 4 langkah Berpikir Komputasional untuk memecahkan masalah kompleks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Pemanasan -->
+            <div id="slide-2" class="slide" style="background-color: var(--brand-blue);">
+                <h2 class="text-4xl font-black text-white mb-2">Pemanasan: Seberapa Akrab Kita dengan AI?</h2>
+                <p class="text-2xl font-bold text-white/80 mb-8">Dalam 24 jam terakhir, aplikasi mana yang Anda gunakan?</p>
+                <div class="flex flex-wrap justify-center gap-8">
+                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:-rotate-6 transition-transform duration-300">
+                        <img src="https://cdn-icons-png.freepik.com/512/5323/5323926.png" alt="Google Maps Icon" class="h-20 w-20">
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:rotate-6 transition-transform duration-300">
+                        <img src="https://cdn3.iconfinder.com/data/icons/social-network-30/512/social-06-512.png" alt="YouTube Icon" class="h-20 w-20">
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:-rotate-6 transition-transform duration-300">
+                        <img src="https://cdn-icons-png.flaticon.com/512/8826/8826609.png" alt="Shopee Icon" class="h-20 w-20">
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl shadow-lg flex justify-center items-center h-32 w-32 transform hover:scale-110 hover:rotate-6 transition-transform duration-300">
+                        <img src="https://png.pngtree.com/png-vector/20240719/ourmid/pngtree-cartoon-picture-of-an-icon-and-a-chat-screen-on-a-vector-png-image_7228088.png" alt="Keyboard/Chat Icon" class="h-20 w-20 object-contain">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BAGIAN 2: EKSPLORASI INTI (70 Menit) -->
+            
+            <!-- Slide 4: Pre-Test -->
+            <div id="slide-3" class="slide bg-pattern">
+                <div class="text-center mb-8">
+                    <h2 class="text-5xl font-black text-gray-800">Cek Ombak Dulu: Pre-Test Awal</h2>
+                    <p class="text-xl text-gray-600 mt-2">Tidak ada nilai benar atau salah, ini hanya untuk pemetaan.</p>
+                </div>
+                <div class="flex items-center gap-12 bg-white p-10 rounded-3xl shadow-2xl border-2 border-white">
+                    <img src="https://drive.google.com/uc?export=view&id=1iedXnDTQPHUGfw-QEEhMuhA5wlgjNv_d" alt="QR Code" class="rounded-2xl shadow-lg w-64 hidden md:block">
+                    <div class="text-center">
+                        <p class="text-2xl font-bold text-gray-700">Waktu Pengerjaan</p>
+                        <p id="timer-display" class="text-8xl font-black text-[var(--brand-blue)] my-2">10:00</p>
+                        <div class="flex justify-center gap-3 mb-6">
+                            <button id="start-timer-btn" class="bg-[var(--brand-blue)] hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl">Mulai</button>
+                            <button id="restart-timer-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl">Ulangi</button>
+                        </div>
+                        <p class="text-xl font-mono bg-gray-100 p-4 rounded-lg tracking-widest">bit.ly/pretest_sarmi</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Bongkar Rahasia -->
+            <div id="slide-4" class="slide bg-pattern text-center">
+                <h2 class="text-6xl font-black text-[var(--brand-blue)] mb-8">Kok Bisa, ya?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100 flex flex-col items-center">
+                        <div class="flex-grow flex justify-center items-center mb-4">
+                            <img src="https://cdn-icons-png.freepik.com/512/5323/5323926.png" alt="Google Maps Icon" class="h-20">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-900">Google Maps</h3>
+                        <p class="text-gray-700">Bagaimana bisa tahu jalanan di depan macet?</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100 flex flex-col items-center">
+                        <div class="flex-grow flex justify-center items-center gap-4 mb-4">
+                            <img src="https://cdn3.iconfinder.com/data/icons/social-network-30/512/social-06-512.png" alt="YouTube Icon" class="h-20">
+                            <img src="https://cdn-icons-png.flaticon.com/512/8826/8826609.png" alt="Shopee Icon" class="h-20">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-900">YouTube / Shopee</h3>
+                        <p class="text-gray-700">Kenapa rekomendasinya sering pas dengan selera kita?</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border-2 border-gray-100 flex flex-col items-center">
+                        <div class="flex-grow flex justify-center items-center mb-4">
+                            <img src="https://png.pngtree.com/png-vector/20240719/ourmid/pngtree-cartoon-picture-of-an-icon-and-a-chat-screen-on-a-vector-png-image_7228088.png" alt="Keyboard Icon" class="h-20 object-contain">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-900">Smartphone</h3>
+                        <p class="text-gray-700">Bagaimana HP bisa membetulkan typo kita secara otomatis?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Kunci Jawaban -->
+            <div id="slide-5" class="slide" style="background-color: var(--brand-blue);">
+                 <svg class="starburst" style="top: 10%; right: 10%; width:80px; height:80px; color: var(--brand-lime); transform: rotate(-25deg);"><use xlink:href="#starburst-svg"></use></svg>
+                 <svg class="starburst" style="bottom: 15%; left: 15%; width:50px; height:50px; color: var(--brand-lime); opacity: 0.6;"><use xlink:href="#starburst-svg"></use></svg>
+                <h2 class="text-4xl font-black text-white mb-8 z-10">Inilah Kunci Jawabannya: DATA, POLA, & PREDIKSI</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl z-10">
+                    <div class="bg-white/20 p-8 rounded-2xl text-center text-white backdrop-blur-md border border-white/30">
+                        <h3 class="text-4xl font-black text-[var(--brand-lime)]">📊 DATA</h3>
+                        <p class="mt-4 text-lg">AI Belajar dari DATA (Jutaan data kecepatan HP di jalan).</p>
+                    </div>
+                    <div class="bg-white/20 p-8 rounded-2xl text-center text-white backdrop-blur-md border border-white/30">
+                        <h3 class="text-4xl font-black text-[var(--brand-lime)]">🔍 POLA</h3>
+                        <p class="mt-4 text-lg">AI Menemukan POLA (Jika banyak HP melambat, POLA-nya macet).</p>
+                    </div>
+                    <div class="bg-white/20 p-8 rounded-2xl text-center text-white backdrop-blur-md border border-white/30">
+                        <h3 class="text-4xl font-black text-[var(--brand-lime)]">🔮 PREDIKSI</h3>
+                        <p class="mt-4 text-lg">AI Membuat PREDIKSI (PREDIKSI rute tercepat untuk Anda).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Analogi -->
+            <div id="slide-6" class="slide bg-pattern">
+                <h2 class="text-4xl font-black text-gray-800 mb-8">Analogi Sederhana</h2>
+                <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-5xl">
+                    <div class="bg-white p-8 rounded-2xl text-center border-2 border-gray-100 shadow-xl">
+                        <h3 class="text-3xl font-bold text-gray-800 mb-4">Kalkulator (Non-AI)</h3>
+                        <p class="text-7xl mb-4">🔢</p>
+                        <p class="text-xl font-semibold text-[var(--brand-blue)]">"Hanya Mengikuti Perintah"</p>
+                        <p class="text-lg mt-2 text-gray-600">2+2 akan selalu menghasilkan 4. Tidak pernah berubah.</p>
+                    </div>
+                    <div class="bg-[var(--brand-lime)] p-8 rounded-2xl text-center border-4 border-gray-800 shadow-2xl">
+                        <h3 class="text-3xl font-bold mb-4 text-gray-900">Google Translate (AI)</h3>
+                        <p class="text-7xl mb-4">🌐</p>
+                        <p class="text-xl font-semibold text-gray-800">"Terus Belajar & Beradaptasi"</p>
+                        <p class="text-lg mt-2 text-gray-700">Terjemahannya semakin alami dari waktu ke waktu.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Jembatan Topik -->
+            <div id="slide-7" class="slide text-center bg-pattern">
+                 <svg class="starburst" style="top: 15%; left: 10%; color: var(--brand-lime);"><use xlink:href="#starburst-svg"></use></svg>
+                 <svg class="starburst" style="bottom: 20%; right: 15%; transform: rotate(15deg); width: 60px; height: 60px; color: var(--brand-blue);"><use xlink:href="#starburst-svg"></use></svg>
+                <div class="bg-white p-12 rounded-3xl shadow-2xl border-2 border-white max-w-4xl z-10">
+                    <p class="text-xl text-gray-600 mb-4">Untuk membangun teknologi cerdas seperti AI, para ahli tidak langsung coding.</p>
+                    <p class="text-xl text-gray-600 mb-8">Mereka memulainya dengan sebuah kerangka berpikir sistematis untuk memecahkan masalah.</p>
+                    <h1 class="text-5xl font-black text-white bg-[var(--brand-blue)] py-4 px-8 rounded-2xl shadow-2xl inline-block transform -rotate-2">BERPIKIR KOMPUTASIONAL</h1>
+                    <p class="text-lg mt-2 font-bold text-gray-500">(COMPUTATIONAL THINKING)</p>
+                </div>
+            </div>
+
+            <!-- Slide 9: Studi Kasus -->
+            <div id="slide-8" class="slide bg-pattern">
+                <div class="bg-white p-12 rounded-3xl shadow-2xl border-2 border-white max-w-4xl text-center">
+                    <h2 class="text-4xl font-black text-gray-800">Studi Kasus Kita:</h2>
+                    <p class="text-4xl font-bold text-white bg-[var(--brand-blue)] mt-4 p-4 rounded-xl inline-block">"Menyukseskan Class Meeting Akhir Semester"</p>
+                    <p class="text-xl mt-6 text-gray-600">Mari kita bedah masalah besar dan kompleks ini menggunakan 4 pilar Berpikir Komputasional.</p>
+                </div>
+            </div>
+
+            <!-- Slide 10: Pilar #1: DEKOMPOSISI -->
+            <div id="slide-9" class="slide bg-pattern text-center">
+                <div class="w-full max-w-4xl">
+                    <h2 class="text-5xl font-black text-gray-800 mb-2">Pilar #1: DEKOMPOSISI</h2>
+                    <p class="text-2xl text-gray-600 mb-8">Seni memecah masalah 'gajah' menjadi potongan-potongan 'ayam' yang lebih mudah dikelola.</p>
+                    <div class="bg-white border-4 border-[var(--brand-lime)] text-gray-800 p-8 rounded-2xl w-full shadow-2xl">
+                        <h3 class="font-black text-2xl text-[var(--brand-dark)]">Diskusi Kelompok Cepat (5 Menit)</h3>
+                        <p class="mt-2 text-lg">Secara berkelompok, tuliskan minimal 5 tugas utama dari proyek 'Class Meeting' di Jamboard/Padlet atau kertas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Pilar #2: PENGENALAN POLA -->
+            <div id="slide-10" class="slide bg-pattern text-center">
+                 <div class="w-full max-w-4xl">
+                    <h2 class="text-5xl font-black text-gray-800 mb-2">Pilar #2: PENGENALAN POLA</h2>
+                    <p class="text-2xl text-gray-600 mb-8">Mencari kesamaan di antara potongan-potongan masalah agar bisa bekerja lebih efisien.</p>
+                    <div class="bg-white border-4 border-[var(--brand-blue)] text-gray-800 p-8 rounded-2xl w-full shadow-2xl">
+                        <h3 class="font-black text-2xl text-[var(--brand-dark)]">Diskusi Kelas</h3>
+                        <p class="mt-2 text-lg">Dari daftar tugas tadi, adakah yang polanya mirip? Misal, apa kesamaan dalam mengurus lomba futsal, basket, dan voli?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 12: Pilar #3: ABSTRAKSI -->
+            <div id="slide-11" class="slide bg-pattern text-center">
+                <div class="w-full max-w-4xl">
+                    <h2 class="text-5xl font-black text-gray-800 mb-2">Pilar #3: ABSTRAKSI</h2>
+                    <p class="text-2xl text-gray-600 mb-8">Fokus pada informasi yang PENTING saja, abaikan detail yang tidak relevan untuk sementara.</p>
+                     <div class="bg-white border-4 border-[var(--brand-lime)] text-gray-800 p-8 rounded-2xl w-full shadow-2xl">
+                        <h3 class="font-black text-2xl text-[var(--brand-dark)]">Tanya Jawab Cepat</h3>
+                        <p class="mt-2 text-lg">Saat membuat draf jadwal pertandingan, info apa yang WAJIB ada, dan info apa yang bisa ditambahkan nanti?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 13: Pilar #4: ALGORITMA -->
+            <div id="slide-12" class="slide bg-pattern text-center">
+                <div class="w-full max-w-4xl">
+                    <h2 class="text-5xl font-black text-gray-800 mb-2">Pilar #4: ALGORITMA</h2>
+                    <p class="text-2xl text-gray-600 mb-8">Membuat urutan langkah-demi-langkah yang jelas dan tidak ambigu untuk menyelesaikan satu tugas.</p>
+                     <div class="bg-white border-4 border-[var(--brand-blue)] text-gray-800 p-8 rounded-2xl w-full shadow-2xl">
+                        <h3 class="font-black text-2xl text-[var(--brand-dark)]">Tugas Kelompok (7 Menit)</h3>
+                        <p class="mt-2 text-lg">Mari buat 'resep' untuk tugas ini: 'Proses Pendaftaran Satu Tim Futsal'. Tuliskan 5 langkah berurutan dari MULAI hingga SELESAI.</p>
+                    </div>
+                    <div class="mt-6 w-full">
+                        <button id="accordion-button" class="w-full flex justify-between items-center p-4 bg-gray-800 hover:bg-black text-white rounded-xl transition-colors focus:outline-none focus:ring-4 focus:ring-[var(--brand-lime)] shadow-lg">
+                            <span class="font-bold">Lihat Contoh Jawaban (Algoritma)</span>
+                            <svg id="accordion-icon" class="w-6 h-6 transition-transform transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="accordion-content" class="hidden mt-2 p-6 bg-white border-2 border-gray-200 rounded-lg shadow-inner">
+                            <ol class="list-decimal list-inside space-y-3 text-gray-800 text-lg text-left">
+                                <li><strong>Mulai:</strong> Tim mengambil formulir pendaftaran dari meja panitia.</li>
+                                <li><strong>Isi Data:</strong> Tim mengisi data dengan lengkap (nama tim, daftar pemain, kapten).</li>
+                                <li><strong>Penyerahan:</strong> Formulir yang sudah diisi diserahkan kembali kepada panitia.</li>
+                                <li><strong>Pembayaran:</strong> Tim melakukan pembayaran biaya pendaftaran sesuai ketentuan.</li>
+                                <li><strong>Konfirmasi:</strong> Tim menerima bukti pendaftaran dari panitia sebagai konfirmasi.</li>
+                                <li><strong>Selesai.</strong></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BAGIAN 3: REFLEKSI & PENUTUP (10 Menit) -->
+            
+            <!-- Slide 14: Rangkuman Visual -->
+            <div id="slide-13" class="slide" style="background-color: var(--brand-dark);">
+                <div class="text-center w-full max-w-4xl">
+                    <h2 class="text-4xl font-black text-white mb-8">Rangkuman Visual: Kerangka Berpikir Digital</h2>
+                     <div class="text-center bg-gray-700 p-8 rounded-2xl border-2 border-gray-600">
+                        <h3 class="text-3xl font-bold text-[var(--brand-lime)]">Pemecahan Masalah di Era Digital</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6 text-white">
+                            <div class="bg-gray-800 p-6 rounded-xl">
+                                <h4 class="text-2xl font-bold border-b-4 border-[var(--brand-lime)] pb-2 mb-4 inline-block">Masalah (AI)</h4>
+                                <p>Contoh: Maps, YouTube</p>
+                                <p class="font-bold text-xl mt-2">Prinsip: Data, Pola, Prediksi</p>
+                            </div>
+                            <div class="bg-gray-800 p-6 rounded-xl">
+                                <h4 class="text-2xl font-bold border-b-4 border-[var(--brand-lime)] pb-2 mb-4 inline-block">Solusi (Kita)</h4>
+                                <p>Berpikir Komputasional</p>
+                                <p class="font-bold text-xl mt-2">4 Pilar: Dekomposisi, Pola, Abstraksi, Algoritma</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-8 text-xl text-white/80">Dari semua yang kita bahas, bagian mana yang paling 'klik' atau memberikan pencerahan baru?</p>
+                </div>
+            </div>
+
+            <!-- Slide 15: "Tiket Keluar" (Refleksi) -->
+            <div id="slide-14" class="slide bg-pattern">
+                <div class="text-center w-full max-w-3xl">
+                    <h2 class="text-5xl font-black text-gray-800 mb-2">"Tiket Keluar": Refleksi Cepat</h2>
+                    <p class="text-xl mb-8 text-gray-600">Sebelum kita selesai, mohon tuliskan di kertas/form:</p>
+                    <div class="text-left bg-white p-8 rounded-2xl border-2 border-gray-100 space-y-6 shadow-xl text-lg">
+                        <p>1. Satu hal <strong>paling menarik</strong> yang saya pelajari hari ini adalah...</p>
+                        <p>2. Satu <strong>pertanyaan</strong> yang masih saya miliki adalah...</p>
+                        <p>3. Saya ingin mencoba menerapkan <strong>[pilih: Dekomposisi / Pola / Abstraksi / Algoritma]</strong> untuk memecahkan masalah...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 16: Feedback -->
+            <div id="slide-15" class="slide bg-pattern">
+                <div class="text-center w-full max-w-3xl">
+                    <h2 class="text-5xl font-black text-gray-800 mb-2">Mohon Isi Form Feedback</h2>
+                    <p class="text-xl mb-8 text-gray-600">Masukan Anda sangat berharga untuk perbaikan kami ke depannya.</p>
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-2 border-gray-100 flex flex-col md:flex-row items-center gap-8">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=http://bit.ly/sarmi_feedback" alt="QR Code Feedback" class="w-48 h-48 rounded-lg">
+                        <div class="text-left">
+                            <p class="text-lg text-gray-700">Pindai QR code di samping atau kunjungi tautan di bawah ini untuk mengisi form feedback.</p>
+                            <p class="mt-4 font-mono bg-gray-100 p-4 rounded-lg text-center text-lg tracking-wider">bit.ly/sarmi_feedback</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 17: Terima Kasih -->
+            <div id="slide-16" class="slide" style="background-color: var(--brand-blue); color: white;">
+                 <svg class="starburst" style="top: 10%; left: 10%; width:120px; height:120px; color: var(--brand-lime); transform: rotate(20deg); opacity: 0.5;"><use xlink:href="#starburst-svg"></use></svg>
+                 <svg class="starburst" style="bottom: 15%; right: 10%; transform: rotate(-15deg); color: white;"><use xlink:href="#starburst-svg"></use></svg>
+                <div class="text-center z-10">
+                    <h1 class="text-8xl font-black">Terima Kasih!</h1>
+                    <p class="text-2xl mt-4 opacity-80">Atas partisipasi luar biasa Bapak/Ibu!</p>
+                    <div class="mt-12 bg-white/20 p-4 rounded-xl text-center backdrop-blur-sm border border-white/30">
+                        <h3 class="text-xl font-bold">Pertemuan Selanjutnya:</h3>
+                        <p class="opacity-80 mt-1">Praktik Langsung dengan Alat Bantu AI Generatif</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Navigation -->
+        <div id="prev-slide" class="nav-arrow">
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </div>
+        <div id="next-slide" class="nav-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+
+        <!-- Indicators -->
+        <div id="slide-indicators"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const nextBtn = document.getElementById('next-slide');
+            const prevBtn = document.getElementById('prev-slide');
+            const indicatorsContainer = document.getElementById('slide-indicators');
+            let currentSlide = 0;
+            const slideCount = slides.length;
+            let isAnimating = false;
+
+            // Create indicator dots
+            for (let i = 0; i < slideCount; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('indicator-dot');
+                dot.dataset.slide = i;
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.slide, 10)));
+                indicatorsContainer.appendChild(dot);
+            }
+            const dots = document.querySelectorAll('.indicator-dot');
+
+            function updateIndicators() {
+                dots.forEach(dot => dot.classList.remove('active'));
+                if (dots[currentSlide]) {
+                    dots[currentSlide].classList.add('active');
+                }
+            }
+
+            function goToSlide(slideIndex, direction) {
+                if (isAnimating || slideIndex < 0 || slideIndex >= slideCount || slideIndex === currentSlide) return;
+                isAnimating = true;
+
+                const newSlide = slides[slideIndex];
+                const oldSlide = slides[currentSlide];
+                
+                const slideDirection = direction || (slideIndex > currentSlide ? 'next' : 'prev');
+                
+                // Set initial positions for animation
+                if (slideDirection === 'next') {
+                    newSlide.classList.add('enter-right');
+                    oldSlide.classList.add('exit-left');
+                } else {
+                    newSlide.classList.add('enter-left');
+                    oldSlide.classList.add('exit-right');
+                }
+                
+                // Make the new slide visible
+                newSlide.classList.add('active');
+                
+                // Force a reflow to apply the initial state before transitioning
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        newSlide.classList.remove('enter-right', 'enter-left');
+                    });
+                });
+
+                currentSlide = slideIndex;
+                updateIndicators();
+                
+                // Clean up classes after animation ends
+                setTimeout(() => {
+                    oldSlide.classList.remove('active', 'exit-left', 'exit-right');
+                    isAnimating = false;
+                }, 600); // Must match CSS transition duration
+            }
+
+            nextBtn.addEventListener('click', () => {
+                const nextSlideIndex = (currentSlide + 1) % slideCount;
+                goToSlide(nextSlideIndex, 'next');
+            });
+
+            prevBtn.addEventListener('click', () => {
+                const prevSlideIndex = (currentSlide - 1 + slideCount) % slideCount;
+                goToSlide(prevSlideIndex, 'prev');
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'ArrowRight') {
+                    nextBtn.click();
+                } else if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                }
+            });
+
+            updateIndicators();
+
+            // --- LOGIKA TIMER PRE-TEST ---
+            const timerDisplay = document.getElementById('timer-display');
+            const startBtn = document.getElementById('start-timer-btn');
+            const restartBtn = document.getElementById('restart-timer-btn');
+            
+            let timerInterval = null;
+            let timeLeft = 10 * 60; // 10 menit dalam detik
+
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            function startTimer() {
+                if (timerInterval) return; // Mencegah interval ganda
+
+                startBtn.disabled = true;
+                startBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        timerDisplay.textContent = "WAKTU HABIS";
+                    }
+                }, 1000);
+            }
+
+            function restartTimer() {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                timeLeft = 10 * 60;
+                updateTimerDisplay();
+                startBtn.disabled = false;
+                startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            startBtn.addEventListener('click', startTimer);
+            restartBtn.addEventListener('click', restartTimer);
+            // --- AKHIR LOGIKA TIMER ---
+
+            // --- LOGIKA ACCORDION ---
+            const accordionButton = document.getElementById('accordion-button');
+            const accordionContent = document.getElementById('accordion-content');
+            const accordionIcon = document.getElementById('accordion-icon');
+
+            accordionButton.addEventListener('click', () => {
+                const isHidden = accordionContent.classList.contains('hidden');
+                if (isHidden) {
+                    accordionContent.classList.remove('hidden');
+                    accordionIcon.classList.add('rotate-180');
+                } else {
+                    accordionContent.classList.add('hidden');
+                    accordionIcon.classList.remove('rotate-180');
+                }
+            });
+            // --- AKHIR LOGIKA ACCORDION ---
+        });
+    </script>
+</body>
+</html>
